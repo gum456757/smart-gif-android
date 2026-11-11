@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">스마트 GIF</string>
+    <string name="offline_message">인터넷 연결을 확인한 뒤 다시 시도해 주세요.</string>
+    <string name="retry">다시 시도</string>
+    <string name="saved">GIF를 저장했습니다</string>
+    <string name="open">열기</string>
+    <string name="save_failed">GIF를 저장하지 못했습니다</string>
+    <string name="too_large">GIF가 너무 커서 저장할 수 없습니다</string>
+    <string name="storage_denied">저장 권한이 없어 다운로드를 완료하지 못했습니다</string>
+    <string name="chooser_missing">파일 선택 화면을 열 수 없습니다</string>
+    <string name="open_failed">저장된 GIF를 열 앱이 없습니다</string>
+</resources>
