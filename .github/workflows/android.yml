@@ -17,35 +17,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 17
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install SDK packages
-        run: |
-          yes | sdkmanager --licenses >/dev/null || true
-          sdkmanager --install "platforms;android-35" "build-tools;35.0.0"
+        uses: android-actions/setup-android@v4
+        with:
+          log-accepted-android-sdk-licenses: false
+          packages: platforms;android-35 build-tools;35.0.0 platform-tools
 
       - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Build release APK
-        run: chmod +x ./gradlew && ./gradlew :app:assembleRelease --stacktrace --no-daemon
+        shell: bash
+        run: |
+          sed -i 's/\r$//' gradlew
+          sed -i 's/\r$//' gradle/wrapper/gradle-wrapper.properties
+          sed -i 's/\r$//' keystore.properties
+          chmod +x gradlew
+          ./gradlew :app:assembleRelease --stacktrace --no-daemon
 
       - name: Collect APK
+        shell: bash
         run: |
           mkdir -p dist
           cp app/build/outputs/apk/release/*-release.apk dist/smart-gif.apk
 
       - name: Upload APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: smart-gif
           path: dist/smart-gif.apk
